@@ -58,7 +58,7 @@ class MyGradientButtonWidget extends StatelessWidget {
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(borderRadius: borderRadius),
-          padding: EdgeInsets.all(0),
+          padding: const EdgeInsets.all(0),
         ),
         child: child,
       ),

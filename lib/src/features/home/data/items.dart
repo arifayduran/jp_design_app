@@ -57,6 +57,18 @@ const Map<String, List<Item>> items = {
       isKcal: false,
       isSugar: false,
     ),
+    Item(
+        title: "Ferhat",
+        subtitle: "Süßer Kerl",
+        description: "Unser Klassensprecher",
+        price: 0,
+        likedCount: 9999,
+        reviews: 5.0,
+        isGluten: false,
+        isLowFat: false,
+        isKcal: false,
+        isSugar: true,
+        assetPath: "assets/graphics/ferhat.png")
   ],
   "Ice Cream's": [
     Item(

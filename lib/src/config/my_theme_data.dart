@@ -21,7 +21,7 @@ ThemeData myThemeData = ThemeData(
       fontSize: 18,
       fontWeight: FontWeight.w700,
       color: Colors.white,
-         letterSpacing: -1,
+      letterSpacing: -1,
       // fontStyle: FontStyle.italic,
       fontFamily: "Inter",
       // fontFamily: "SF Pro",
