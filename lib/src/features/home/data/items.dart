@@ -45,7 +45,7 @@ const Map<String, List<Item>> items = {
   ],
   "Sweet": [
     Item(
-      title: "Excample for no image.",
+      title: "Example for no image",
       subtitle: "Das ist ein Beispiel für ein Item ohne Bild.",
       description:
           "Beispiel für zu viel Text. Beispiel für zu viel Text. Beispiel für zu viel Text. Beispiel für zu viel Text. Beispiel für zu viel Text. Beispiel für zu viel Text. Beispiel für zu viel Text. Beispiel für zu viel Text. Beispiel für zu viel Text. Beispiel für zu viel Text. Beispiel für zu viel Text. Beispiel für zu viel Text. Beispiel für zu viel Text. Beispiel für zu viel Text. Beispiel für zu viel Text.",
