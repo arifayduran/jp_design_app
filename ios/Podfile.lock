@@ -7,12 +7,15 @@ PODS:
     - FlutterMacOS
   - rive_common (0.0.1):
     - Flutter
+  - sf_symbols (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - rive_common (from `.symlinks/plugins/rive_common/ios`)
+  - sf_symbols (from `.symlinks/plugins/sf_symbols/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
@@ -23,12 +26,15 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   rive_common:
     :path: ".symlinks/plugins/rive_common/ios"
+  sf_symbols:
+    :path: ".symlinks/plugins/sf_symbols/ios"
 
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_native_splash: edf599c81f74d093a4daf8e17bd7a018854bc778
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   rive_common: cbbac3192af00d7341f19dae2f26298e9e37d99e
+  sf_symbols: 84365e389895263a28c58be12a5ddedb7182cc4e
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 

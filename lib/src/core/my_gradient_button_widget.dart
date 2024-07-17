@@ -6,6 +6,7 @@ class MyGradientButtonWidget extends StatelessWidget {
   final double height;
   final Gradient gradient;
   final VoidCallback? onPressed;
+  final double borderStroke;
   final Widget child;
 
   const MyGradientButtonWidget({
@@ -13,11 +14,12 @@ class MyGradientButtonWidget extends StatelessWidget {
     required this.onPressed,
     required this.child,
     this.borderRadius,
+    required this.borderStroke,
     this.width,
     this.height = 47.0,
     this.gradient = const LinearGradient(colors: [
-      Color.fromARGB(255, 214, 99, 183),
-      Color.fromARGB(255, 232, 157, 172)
+      Color.fromARGB(255, 240, 105, 204),
+      Color.fromARGB(255, 255, 168, 168)
     ]),
   });
 
@@ -38,14 +40,14 @@ class MyGradientButtonWidget extends StatelessWidget {
           //     spreadRadius: -10,
           //     offset: Offset(3, 3)),
           BoxShadow(
-              blurRadius: 25,
-              color: Color.fromARGB(114, 255, 151, 202),
+              blurRadius: 22,
+              color: Color.fromARGB(150, 230, 121, 185),
               spreadRadius: 0,
-              offset: Offset(0, 12)),
+              offset: Offset(-1, 9)),
         ],
         border: Border.all(
           color: const Color.fromARGB(255, 230, 121, 185),
-          width: 2,
+          width: borderStroke,
           strokeAlign: BorderSide.strokeAlignInside,
         ),
       ),
@@ -56,6 +58,7 @@ class MyGradientButtonWidget extends StatelessWidget {
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(borderRadius: borderRadius),
+          padding: EdgeInsets.all(0),
         ),
         child: child,
       ),
