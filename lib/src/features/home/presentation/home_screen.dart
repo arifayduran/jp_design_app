@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sficon/flutter_sficon.dart';
 import 'package:jp_design_app/src/features/home/data/items.dart';
 
 import 'package:jp_design_app/src/features/home/data/recommend_items.dart';
+import 'package:jp_design_app/src/features/home/data/shopping_card.dart';
 import 'package:jp_design_app/src/features/home/presentation/blured_button_list.dart';
+import 'package:jp_design_app/src/features/home/presentation/widgets/my_bottom_sheet_shopping_card_widget.dart';
 import 'package:jp_design_app/src/features/home/presentation/widgets/my_bottom_sheet_widget.dart';
 import 'package:jp_design_app/src/features/home/presentation/widgets/my_recommend_card_widget.dart';
+import 'package:jp_design_app/src/features/home/presentation/widgets/my_shopping_card_list_widget.dart';
 import 'package:jp_design_app/src/features/home/presentation/widgets/my_top_card_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,11 +21,93 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int selectedBlurButtonIndex = 1;
   List<String> categoryList = items.keys.toList();
+  final ValueNotifier<int> itemCountNotifier = ValueNotifier<int>(0);
 
   void onSelectBlurButton(int index) {
     setState(() {
       selectedBlurButtonIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    itemCountNotifier.value = shoppingCard.length;
+  }
+
+  @override
+  void dispose() {
+    itemCountNotifier.dispose();
+    super.dispose();
+  }
+
+  // Positioned itemCounter() {
+  //   if (itemCount == 0) {
+  //     return const Positioned(
+  //       child: SizedBox(),
+  //     );
+  //   } else {
+  //     return Positioned(
+  //       right: 10,
+  //       top: -3,
+  //       child: Container(
+  //         height: 21,
+  //         width: 21,
+  //         decoration: BoxDecoration(
+  //             gradient: const LinearGradient(colors: [
+  //               Color.fromARGB(255, 145, 84, 203),
+  //               Color.fromARGB(255, 187, 65, 148)
+  //             ]),
+  //             borderRadius: BorderRadius.circular(25)),
+  //         child: Center(
+  //           child: Text(
+  //             itemCount.toString(),
+  //             style: const TextStyle(
+  //                 color: Colors.white,
+  //                 fontFamily: "SF Pro",
+  //                 fontWeight: FontWeight.w900,
+  //                 fontSize: 13),
+  //           ),
+  //         ),
+  //       ),
+  //     );
+  //   }
+  // }
+
+  Widget itemCounter() {
+    return ValueListenableBuilder<int>(
+      valueListenable: itemCountNotifier,
+      builder: (context, itemCount, child) {
+        if (itemCount == 0) {
+          return const SizedBox();
+        } else {
+          return Positioned(
+            right: 10,
+            top: -3,
+            child: Container(
+              height: 21,
+              width: 21,
+              decoration: BoxDecoration(
+                  gradient: const LinearGradient(colors: [
+                    Color.fromARGB(255, 145, 84, 203),
+                    Color.fromARGB(255, 187, 65, 148)
+                  ]),
+                  borderRadius: BorderRadius.circular(25)),
+              child: Center(
+                child: Text(
+                  itemCount.toString(),
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: "SF Pro",
+                      fontWeight: FontWeight.w900,
+                      fontSize: 13),
+                ),
+              ),
+            ),
+          );
+        }
+      },
+    );
   }
 
   @override
@@ -50,14 +136,39 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 75,
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 21),
-                    width: double.infinity,
-                    child: Text(
-                      "Choose Your Favorite\nSnack",
-                      style: Theme.of(context).textTheme.displayLarge!,
-                      textAlign: TextAlign.start,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(left: 21),
+                        width: 300,
+                        child: Text(
+                          "Choose Your Favorite Snack",
+                          style: Theme.of(context).textTheme.displayLarge!,
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: IconButton(
+                                onPressed: () {
+                                  myBottomSheetShoppingCardWidget(
+                                      context, shoppingCard);
+                                },
+                                icon: const SFIcon(
+                                  SFIcons.sf_basket_fill,
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                )),
+                          ),
+                          itemCounter(),
+                        ],
+                      )
+                    ],
                   ),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -92,8 +203,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 .map((item) {
                                 return MyTopCardWidget(
                                   onPressed: () {
-                                    print('Add to Order button pressed');
-                                    myBottomSheetWidget(context, item);
+                                    myBottomSheetWidget(
+                                        context, item, itemCountNotifier);
                                   },
                                   assetPath: item.assetPath ??
                                       "assets/graphics/noimage.png",
@@ -141,7 +252,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               ? recommendItems.map((item) {
                                   return MyRecommendCardWidget(
                                     onTap: () {
-                                      myBottomSheetWidget(context, item);
+                                      myBottomSheetWidget(
+                                          context, item, itemCountNotifier);
                                     },
                                     assetPath: item.assetPath ??
                                         "assets/graphics/noimage.png",

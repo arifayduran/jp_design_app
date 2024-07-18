@@ -6,22 +6,6 @@ import 'package:jp_design_app/src/core/my_gradient_button_widget.dart';
 import 'package:jp_design_app/src/features/home/presentation/home_screen.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
-// ElevatedButton(
-//                   onPressed: () {},
-//                   style: ElevatedButton.styleFrom(
-//                       backgroundColor: Colors.transparent,
-//                       shadowColor: Colors.transparent),
-//                   child: Container(
-//                     height: 44.0,
-//                     decoration: BoxDecoration(
-//                         gradient: LinearGradient(colors: [
-//                       Color.fromARGB(255, 2, 173, 102),
-//                       Colors.blue
-//                     ])),
-//                     child: Text('Elevated Button'),
-//                   ),
-//                 ),
-
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
 

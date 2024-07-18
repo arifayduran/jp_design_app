@@ -38,7 +38,7 @@ const Map<String, List<Item>> items = {
       reviews: 3.7,
       isGluten: true,
       isLowFat: false,
-      isKcal: false,
+      isKcal: true,
       isSugar: false,
       assetPath: "assets/graphics/pizza3.png",
     ),

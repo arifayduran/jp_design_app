@@ -4,17 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sficon/flutter_sficon.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jp_design_app/src/core/my_gradient_button_widget.dart';
+import 'package:jp_design_app/src/features/home/data/shopping_card.dart';
 import 'package:jp_design_app/src/features/home/domain/item.dart';
+import 'package:jp_design_app/src/features/home/domain/shopping_card_details.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-void myBottomSheetWidget(BuildContext context, Item item) {
+
+void myBottomSheetWidget(
+    BuildContext context, Item item, ValueNotifier<int> itemCountNotifier) {
   showModalBottomSheet(
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     context: context,
     builder: (BuildContext context) {
-      return MyModalBottomSheet(context: context, item: item);
+      return MyModalBottomSheet(
+          context: context, item: item, itemCountNotifier: itemCountNotifier);
     },
   );
 }
@@ -24,10 +29,12 @@ class MyModalBottomSheet extends StatefulWidget {
     super.key,
     required this.context,
     required this.item,
+    required this.itemCountNotifier,
   });
 
   final BuildContext context;
   final Item item;
+  final ValueNotifier<int> itemCountNotifier;
 
   @override
   State<MyModalBottomSheet> createState() => _MyModalBottomSheetState();
@@ -40,22 +47,22 @@ class _MyModalBottomSheetState extends State<MyModalBottomSheet> {
   int favCountNew = 0;
   int selectedSizeIndex = 2;
   double basePrice = 0.0;
-  double currentPrice = 0.0;
+  double itemPriceTotal = 0.0;
 
-  int counter = 1;
+  int amount = 1;
 
-  void incrementCounter() {
+  void incrementAmount() {
     setState(() {
-      counter++;
+      amount++;
       updatePrice();
     });
   }
 
-  void decrementCounter() {
+  void decrementAmount() {
     setState(() {
-      counter--;
-      if (counter <= 1) {
-        counter = 1;
+      amount--;
+      if (amount <= 1) {
+        amount = 1;
       }
       updatePrice();
     });
@@ -76,7 +83,21 @@ class _MyModalBottomSheetState extends State<MyModalBottomSheet> {
       default:
         sizeMultiplier = 1.0;
     }
-    currentPrice = basePrice * sizeMultiplier * counter;
+    itemPriceTotal = basePrice * sizeMultiplier * amount;
+  }
+
+  void _addToShoppingCart(Item item, int amount, int selectedSizeIndex) {
+    setState(() {
+      if (shoppingCard.containsKey(item)) {
+        shoppingCard[item]!.amount += amount;
+      } else {
+        shoppingCard[item] = ShoppingCardDetails(
+          amount: amount,
+          selectedSizeIndex: selectedSizeIndex,
+        );
+      }
+      widget.itemCountNotifier.value = shoppingCard.length;
+    });
   }
 
   @override
@@ -84,7 +105,7 @@ class _MyModalBottomSheetState extends State<MyModalBottomSheet> {
     super.initState();
     favCountNew = widget.item.likedCount;
     basePrice = widget.item.price;
-    currentPrice = basePrice;
+    itemPriceTotal = basePrice;
   }
 
   List<Widget> generateReviewStars(double rating) {
@@ -413,7 +434,7 @@ class _MyModalBottomSheetState extends State<MyModalBottomSheet> {
               color: Colors.transparent,
               child: InkWell(
                 onTap: () {
-                  decrementCounter();
+                  decrementAmount();
                 },
                 highlightColor: const Color.fromARGB(180, 142, 134, 255),
                 splashColor: const Color.fromARGB(180, 148, 88, 207),
@@ -441,7 +462,7 @@ class _MyModalBottomSheetState extends State<MyModalBottomSheet> {
             bottom: 135,
             right: 72,
             child: Text(
-              "$counter",
+              "$amount",
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -462,7 +483,7 @@ class _MyModalBottomSheetState extends State<MyModalBottomSheet> {
               color: Colors.transparent,
               child: InkWell(
                 onTap: () {
-                  incrementCounter();
+                  incrementAmount();
                 },
                 highlightColor: const Color.fromARGB(180, 142, 134, 255),
                 splashColor: const Color.fromARGB(180, 148, 88, 207),
@@ -493,7 +514,10 @@ class _MyModalBottomSheetState extends State<MyModalBottomSheet> {
             width: 204,
             height: 50,
             borderStroke: 2,
-            onPressed: () {},
+            onPressed: () {
+              _addToShoppingCart(widget.item, amount, selectedSizeIndex);
+              Navigator.of(context).pop();
+            },
             borderRadius: BorderRadius.circular(10),
             child: Text.rich(
               TextSpan(
@@ -511,7 +535,7 @@ class _MyModalBottomSheetState extends State<MyModalBottomSheet> {
                       ),
                     ),
                     TextSpan(
-                      text: " ${currentPrice.toStringAsFixed(2)}",
+                      text: " ${itemPriceTotal.toStringAsFixed(2)}",
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ]),

@@ -20,6 +20,8 @@ dependencies:
   flutter_sficon: ^1.1.2
   toggle_switch: ^2.3.0
   flutter_inner_shadow: ^0.0.1
+  drop_shadow_image: ^0.9.1
+  provider: ^6.0.4
 
 dev_dependencies:
   flutter_test:
