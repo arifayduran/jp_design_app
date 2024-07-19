@@ -35,8 +35,7 @@ class MyRecommendCardWidget extends StatelessWidget {
               width: 203,
               decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.grey.withOpacity(0.4),
-                    width: 1.5,
+                    color: const Color.fromARGB(46, 213, 213, 213),
                   ),
                   borderRadius: BorderRadius.circular(30),
                   gradient: const LinearGradient(

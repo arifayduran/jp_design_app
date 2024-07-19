@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sficon/flutter_sficon.dart';
-import 'package:jp_design_app/src/features/home/data/items.dart';
+import 'package:jp_design_app/src/config/logical_sizes.dart';
+import 'package:jp_design_app/src/data/items.dart';
 
 import 'package:jp_design_app/src/features/home/data/recommend_items.dart';
-import 'package:jp_design_app/src/features/home/data/shopping_card.dart';
-import 'package:jp_design_app/src/features/home/presentation/blured_button_list.dart';
-import 'package:jp_design_app/src/features/home/presentation/widgets/my_bottom_sheet_shopping_card_widget.dart';
-import 'package:jp_design_app/src/features/home/presentation/widgets/my_bottom_sheet_widget.dart';
+import 'package:jp_design_app/src/features/shopping_card/data/shopping_card.dart';
+import 'package:jp_design_app/src/features/home/presentation/widgets/blured_button_list.dart';
+import 'package:jp_design_app/src/features/add_to_order/presentation/show_my_bottom_sheet_add_order_widget.dart';
 import 'package:jp_design_app/src/features/home/presentation/widgets/my_recommend_card_widget.dart';
-import 'package:jp_design_app/src/features/home/presentation/widgets/my_shopping_card_list_widget.dart';
 import 'package:jp_design_app/src/features/home/presentation/widgets/my_top_card_widget.dart';
+import 'package:jp_design_app/src/features/shopping_card/presentation/widgets/shopping_card_icon_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int selectedBlurButtonIndex = 1;
   List<String> categoryList = items.keys.toList();
-  final ValueNotifier<int> itemCountNotifier = ValueNotifier<int>(0);
+  ValueNotifier<int> itemCountNotifier = ValueNotifier<int>(0);
 
   void onSelectBlurButton(int index) {
     setState(() {
@@ -32,7 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    itemCountNotifier.value = shoppingCard.length;
+    itemCountNotifier.value =
+        shoppingCard.values.fold(0, (total, card) => total + card.amount);
   }
 
   @override
@@ -41,80 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  // Positioned itemCounter() {
-  //   if (itemCount == 0) {
-  //     return const Positioned(
-  //       child: SizedBox(),
-  //     );
-  //   } else {
-  //     return Positioned(
-  //       right: 10,
-  //       top: -3,
-  //       child: Container(
-  //         height: 21,
-  //         width: 21,
-  //         decoration: BoxDecoration(
-  //             gradient: const LinearGradient(colors: [
-  //               Color.fromARGB(255, 145, 84, 203),
-  //               Color.fromARGB(255, 187, 65, 148)
-  //             ]),
-  //             borderRadius: BorderRadius.circular(25)),
-  //         child: Center(
-  //           child: Text(
-  //             itemCount.toString(),
-  //             style: const TextStyle(
-  //                 color: Colors.white,
-  //                 fontFamily: "SF Pro",
-  //                 fontWeight: FontWeight.w900,
-  //                 fontSize: 13),
-  //           ),
-  //         ),
-  //       ),
-  //     );
-  //   }
-  // }
-
-  Widget itemCounter() {
-    return ValueListenableBuilder<int>(
-      valueListenable: itemCountNotifier,
-      builder: (context, itemCount, child) {
-        if (itemCount == 0) {
-          return const SizedBox();
-        } else {
-          return Positioned(
-            right: 10,
-            top: -3,
-            child: Container(
-              height: 21,
-              width: 21,
-              decoration: BoxDecoration(
-                  gradient: const LinearGradient(colors: [
-                    Color.fromARGB(255, 145, 84, 203),
-                    Color.fromARGB(255, 187, 65, 148)
-                  ]),
-                  borderRadius: BorderRadius.circular(25)),
-              child: Center(
-                child: Text(
-                  itemCount.toString(),
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontFamily: "SF Pro",
-                      fontWeight: FontWeight.w900,
-                      fontSize: 13),
-                ),
-              ),
-            ),
-          );
-        }
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    double logicWidth = 393;
-    double logicHeight = 852;
-
     return Scaffold(
       body: SizedBox.expand(
         child: Container(
@@ -149,25 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           textAlign: TextAlign.start,
                         ),
                       ),
-                      Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: IconButton(
-                                onPressed: () {
-                                  myBottomSheetShoppingCardWidget(
-                                      context, shoppingCard);
-                                },
-                                icon: const SFIcon(
-                                  SFIcons.sf_basket_fill,
-                                  color: Colors.white,
-                                  fontSize: 30,
-                                )),
-                          ),
-                          itemCounter(),
-                        ],
-                      )
+                      ShoppingCardIconWidget(
+                          itemCountNotifier: itemCountNotifier),
                     ],
                   ),
                   SingleChildScrollView(
@@ -203,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 .map((item) {
                                 return MyTopCardWidget(
                                   onPressed: () {
-                                    myBottomSheetWidget(
+                                    showMyBottomSheetAddOrderWidget(
                                         context, item, itemCountNotifier);
                                   },
                                   assetPath: item.assetPath ??
@@ -222,6 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   subtitle: "Example for no items in the list",
                                   price: 0.00,
                                   reviews: 0.0,
+                                  isEmpty: true,
                                 ),
                               ],
                       ),
@@ -231,9 +143,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 30,
                   ),
                   Container(
-                    height: 36,
+                    height: 34,
                     padding: const EdgeInsets.symmetric(horizontal: 21),
-                    width: 393,
+                    width: logicWidth,
                     child: const Text(
                       " We Recommend",
                       style: TextStyle(
@@ -252,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ? recommendItems.map((item) {
                                   return MyRecommendCardWidget(
                                     onTap: () {
-                                      myBottomSheetWidget(
+                                      showMyBottomSheetAddOrderWidget(
                                           context, item, itemCountNotifier);
                                     },
                                     assetPath: item.assetPath ??

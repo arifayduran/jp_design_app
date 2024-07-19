@@ -1,8 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:jp_design_app/src/core/my_custom_clipper_t2.dart';
-import 'package:jp_design_app/src/core/my_gradient_button_widget.dart';
+import 'package:jp_design_app/src/config/logical_sizes.dart';
+import 'package:jp_design_app/src/core/presentation/widgets/my_custom_clipper_t2.dart';
+import 'package:jp_design_app/src/core/presentation/widgets/my_gradient_button_widget.dart';
 import 'package:jp_design_app/src/features/home/presentation/home_screen.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
@@ -11,9 +12,6 @@ class StartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double logicWidth = 393;
-    double logicHeight = 852;
-
     return Scaffold(
       body: SizedBox.expand(
         child: Container(
@@ -34,7 +32,7 @@ class StartScreen extends StatelessWidget {
                 children: [
                   Positioned(
                     bottom: 100,
-                    width: 393,
+                    width: logicWidth,
                     child: Opacity(
                       opacity: 0.18,
                       child: Image.asset(
@@ -56,7 +54,7 @@ class StartScreen extends StatelessWidget {
                   ),
                   Positioned(
                     bottom: 100,
-                    width: 393,
+                    width: logicWidth,
                     child: ClipPath(
                       clipper: MyCustomClipperT2(),
                       child: Opacity(

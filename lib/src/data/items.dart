@@ -1,4 +1,4 @@
-import 'package:jp_design_app/src/features/home/domain/item.dart';
+import 'package:jp_design_app/src/domain/item.dart';
 
 const Map<String, List<Item>> items = {
   "Salty": [

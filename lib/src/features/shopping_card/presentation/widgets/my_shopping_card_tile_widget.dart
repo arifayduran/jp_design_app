@@ -2,50 +2,81 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_sficon/flutter_sficon.dart';
-import 'package:jp_design_app/src/core/my_gradient_button_widget.dart';
-import 'package:jp_design_app/src/features/home/data/shopping_card.dart';
-import 'package:jp_design_app/src/features/home/domain/item.dart';
+import 'package:jp_design_app/src/features/shopping_card/data/shopping_card.dart';
+import 'package:jp_design_app/src/domain/item.dart';
+import 'package:jp_design_app/src/features/shopping_card/domain/shopping_card_details.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-class MyShoppingCardListWidget extends StatefulWidget {
-  const MyShoppingCardListWidget({
+class MyShoppingCardTileWidget extends StatefulWidget {
+  const MyShoppingCardTileWidget({
     super.key,
     required this.item,
+    required this.itemCountNotifier,
+    required this.shoppingListNotifier,
   });
 
   final Item item;
+  final ValueNotifier<int> itemCountNotifier;
+  final ValueNotifier<Map<Item, ShoppingCardDetails>> shoppingListNotifier;
 
   @override
-  State<MyShoppingCardListWidget> createState() =>
-      _MyShoppingCardListWidgetState();
+  State<MyShoppingCardTileWidget> createState() =>
+      _MyShoppingCardTileWidgetState();
 }
 
-class _MyShoppingCardListWidgetState extends State<MyShoppingCardListWidget> {
-  double _currentPrice = 0.0;
-  double _itemPriceTotal = 0.0;
+class _MyShoppingCardTileWidgetState extends State<MyShoppingCardTileWidget> {
+  late double _currentPrice;
+  late double _itemPriceTotal;
 
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _shoppingListUpdate();
+    });
     _updatePrice();
+  }
+
+  void _shoppingListUpdate() {
+    if (mounted) {
+      Future.microtask(() {
+        if (mounted) {
+          setState(() {
+            widget.shoppingListNotifier.value = Map.from(shoppingCard);
+          });
+        }
+      });
+    }
+  }
+
+  void _updateItemCount() {
+    setState(() {
+      widget.itemCountNotifier.value =
+          shoppingCard.values.fold(0, (total, card) => total + card.amount);
+    });
   }
 
   void _incrementAmount() {
     setState(() {
       shoppingCard[widget.item]!.amount++;
+      _updateItemCount();
       _updatePrice();
+      _shoppingListUpdate();
     });
   }
 
   void _decrementAmountUntilDelete() {
     setState(() {
-      if (shoppingCard.containsKey(widget.item)) {
+      if (shoppingCard.containsKey(widget.item) &&
+          shoppingCard[widget.item] != null) {
         shoppingCard[widget.item]!.amount--;
         if (shoppingCard[widget.item]!.amount <= 0) {
           shoppingCard.remove(widget.item);
         }
       }
-
+      _shoppingListUpdate();
+      _updateItemCount();
       _updatePrice();
     });
   }
@@ -54,10 +85,13 @@ class _MyShoppingCardListWidgetState extends State<MyShoppingCardListWidget> {
     setState(() {
       shoppingCard[widget.item]!.selectedSizeIndex = index;
       _updatePrice();
+      _shoppingListUpdate();
     });
   }
 
   void _updatePrice() {
+    if (shoppingCard[widget.item] == null) return;
+
     double sizeMultiplier;
     switch (shoppingCard[widget.item]!.selectedSizeIndex) {
       case 0:
@@ -75,17 +109,18 @@ class _MyShoppingCardListWidgetState extends State<MyShoppingCardListWidget> {
     _currentPrice = widget.item.price * sizeMultiplier;
     _itemPriceTotal =
         widget.item.price * sizeMultiplier * shoppingCard[widget.item]!.amount;
+    _shoppingListUpdate();
   }
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(15),
+      borderRadius: BorderRadius.circular(30),
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+        filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
         child: Container(
-          margin: const EdgeInsets.only(top: 15),
-          padding: const EdgeInsets.symmetric(horizontal: 14),
+          margin: const EdgeInsets.only(top: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           height: 100,
           width: double.infinity,
           decoration: BoxDecoration(
@@ -93,14 +128,14 @@ class _MyShoppingCardListWidgetState extends State<MyShoppingCardListWidget> {
                 color: Colors.grey.withOpacity(0.4),
                 width: 1.5,
               ),
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(30),
               gradient: const LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                   colors: [
-                    Color.fromARGB(130, 59, 69, 160),
-                    Color.fromARGB(130, 148, 88, 207),
-                    Color.fromARGB(130, 202, 130, 165)
+                    Color.fromARGB(175, 59, 69, 160),
+                    Color.fromARGB(175, 148, 88, 207),
+                    Color.fromARGB(175, 202, 130, 165)
                   ])),
           child: Row(
             children: [
@@ -122,7 +157,7 @@ class _MyShoppingCardListWidgetState extends State<MyShoppingCardListWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const SizedBox(
-                    height: 5,
+                    height: 6,
                   ),
                   SizedBox(
                     width: 228,
@@ -193,8 +228,8 @@ class _MyShoppingCardListWidgetState extends State<MyShoppingCardListWidget> {
                               const Color.fromARGB(140, 85, 85, 85),
                           activeFgColor: Colors.white,
                           inactiveFgColor: Colors.white.withOpacity(0.6),
-                          initialLabelIndex:
-                              shoppingCard[widget.item]!.selectedSizeIndex,
+                          initialLabelIndex: widget.shoppingListNotifier
+                              .value[widget.item]!.selectedSizeIndex,
                           fontSize: 11.3,
                           dividerMargin: 7.5,
                           radiusStyle: true,
@@ -309,7 +344,6 @@ class _MyShoppingCardListWidgetState extends State<MyShoppingCardListWidget> {
                   ),
                 ],
               ),
-              
             ],
           ),
         ),

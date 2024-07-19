@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jp_design_app/src/features/home/data/items.dart';
-import 'package:jp_design_app/src/features/home/presentation/widgets/my_blur_button_widget.dart';
+import 'package:jp_design_app/src/data/items.dart';
+import 'package:jp_design_app/src/core/presentation/widgets/my_blur_button_widget.dart';
 import 'package:flutter_sficon/flutter_sficon.dart';
 
 List<MyBlurButtonWidget> getBluredButtons(

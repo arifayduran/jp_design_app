@@ -1,5 +1,5 @@
-import 'package:jp_design_app/src/features/home/data/items.dart';
-import 'package:jp_design_app/src/features/home/domain/item.dart';
+import 'package:jp_design_app/src/data/items.dart';
+import 'package:jp_design_app/src/domain/item.dart';
 
 List<Item> recommendItems = [
   items["Ice Cream's"]![0],

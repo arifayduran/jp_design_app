@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter/services.dart';
 import 'package:jp_design_app/src/config/my_theme_data.dart';
-import 'package:jp_design_app/src/core/start_screen.dart';
+import 'package:jp_design_app/src/core/presentation/start_screen.dart';
 import 'package:scaled_app/scaled_app.dart';
 
 void main() async {
