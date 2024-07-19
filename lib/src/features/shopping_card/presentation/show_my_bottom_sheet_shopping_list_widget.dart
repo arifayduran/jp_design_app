@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:jp_design_app/src/config/logical_sizes.dart';
 import 'package:jp_design_app/src/core/presentation/widgets/my_gradient_button_widget.dart';
+import 'package:jp_design_app/src/core/presentation/widgets/my_small_circle_button_widget.dart';
+import 'package:jp_design_app/src/features/shopping_card/application/charge_credit_alert.dart';
 import 'package:jp_design_app/src/features/shopping_card/application/shopping_card_sum.dart';
 import 'package:jp_design_app/src/features/shopping_card/data/credit.dart';
 import 'package:jp_design_app/src/features/shopping_card/data/shopping_card.dart';
@@ -9,6 +11,7 @@ import 'package:jp_design_app/src/domain/item.dart';
 import 'package:jp_design_app/src/features/shopping_card/domain/shopping_card_details.dart';
 import 'package:jp_design_app/src/core/presentation/widgets/blur_gradient.dart';
 import 'package:jp_design_app/src/features/shopping_card/presentation/widgets/my_shopping_card_tile_widget.dart';
+import 'package:shimmer/shimmer.dart';
 
 void showMyBottomSheetShoppingListWidget(
     BuildContext context, ValueNotifier<int> itemCountNotifier) {
@@ -45,9 +48,13 @@ class _MyBottomSheetShoppingCardWidgetState
   ValueNotifier<Map<Item, ShoppingCardDetails>> shoppingListNotifier =
       ValueNotifier<Map<Item, ShoppingCardDetails>>(shoppingCard);
 
+  ValueNotifier<double> chargeCreditNotifier = ValueNotifier<double>(credit);
+
   @override
   void initState() {
     super.initState();
+
+    chargeCreditNotifier.value = credit;
 
     int initialIndex = (shoppingCard.length / 2).floor();
     _scrollController = FixedExtentScrollController(initialItem: initialIndex);
@@ -63,6 +70,7 @@ class _MyBottomSheetShoppingCardWidgetState
   void dispose() {
     _scrollController.dispose();
     shoppingListNotifier.dispose();
+    chargeCreditNotifier.dispose();
     super.dispose();
   }
 
@@ -198,43 +206,35 @@ class _MyBottomSheetShoppingCardWidgetState
                       ),
                     ),
                     Positioned(
-                      top: 67,
-                      right: 25,
-                      width: 35,
-                      height: 35,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        clipBehavior: Clip.antiAlias,
-                        child: Material(
-                          borderRadius: BorderRadius.circular(50),
-                          color: Colors.transparent,
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            highlightColor:
-                                const Color.fromARGB(130, 59, 69, 160),
-                            splashColor: const Color.fromARGB(130, 59, 69, 160),
-                            child: Ink(
-                              decoration: BoxDecoration(
-                                color: const Color.fromARGB(120, 74, 71, 62),
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(
-                                  color: Colors.white.withOpacity(0.7),
-                                  width: 0.3,
-                                  style: BorderStyle.solid,
-                                ),
-                              ),
-                              child: const Icon(
-                                Icons.close,
-                                size: 20,
-                                color: Colors.white,
-                              ),
-                            ),
+                        top: 67,
+                        right: 25,
+                        child: MySmallCircleButtonWidget(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          size: 35,
+                          strokewidth: 0.3,
+                          child: const Icon(
+                            Icons.close,
+                            size: 20,
+                            color: Colors.white,
                           ),
-                        ),
-                      ),
-                    ),
+                        )),
+                    Positioned(
+                        top: 67,
+                        left: 25,
+                        child: MySmallCircleButtonWidget(
+                          onTap: () {
+                            chargeCreditAlert(context, chargeCreditNotifier);
+                          },
+                          size: 35,
+                          strokewidth: 0.3,
+                          child: const Icon(
+                            Icons.credit_card,
+                            size: 20,
+                            color: Colors.white,
+                          ),
+                        )),
                     Positioned(
                       bottom: 115,
                       left: 29,
@@ -253,17 +253,22 @@ class _MyBottomSheetShoppingCardWidgetState
                                   color: Colors.white.withOpacity(0.7),
                                 ),
                           ),
-                          Text(
-                            "${String.fromCharCodes(Runes('\u20B3'))} ${credit.toStringAsFixed(2)}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelLarge!
-                                .copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white.withOpacity(0.7),
-                                ),
-                          ),
+                          ValueListenableBuilder<double>(
+                            valueListenable: chargeCreditNotifier,
+                            builder: (context, credit, _) {
+                              return Text(
+                                "${String.fromCharCodes(Runes('\u20B3'))} ${credit.toStringAsFixed(2)}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge!
+                                    .copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white.withOpacity(0.7),
+                                    ),
+                              );
+                            },
+                          )
                         ],
                       ),
                     ),
@@ -289,53 +294,95 @@ class _MyBottomSheetShoppingCardWidgetState
                                 Map<Item, ShoppingCardDetails>>(
                             valueListenable: shoppingListNotifier,
                             builder: (context, shoppingList, _) {
-                              return Text.rich(
-                                TextSpan(
-                                    text: "Pay with  ",
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                    children: <InlineSpan>[
-                                      WidgetSpan(
-                                        alignment: PlaceholderAlignment.middle,
-                                        child: Text(
-                                          String.fromCharCodes(Runes('\u20B3')),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge!
-                                              .copyWith(fontSize: 23),
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text:
-                                            " ${ShoppingCardSum.totalSum(shoppingListNotifier).toStringAsFixed(2)}",
+                              return Shimmer.fromColors(
+                                  loop: 3,
+                                  period: Duration(seconds: 2),
+                                  baseColor:
+                                      const Color.fromARGB(255, 255, 255, 255),
+                                  highlightColor: Color.fromARGB(255, 0, 0, 0),
+                                  child: Text.rich(
+                                    TextSpan(
+                                        text: "Pay with  ",
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge,
-                                      ),
-                                    ]),
-                              );
+                                        children: <InlineSpan>[
+                                          WidgetSpan(
+                                            alignment:
+                                                PlaceholderAlignment.middle,
+                                            child: Text(
+                                              String.fromCharCodes(
+                                                  Runes('\u20B3')),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge!
+                                                  .copyWith(fontSize: 23),
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text:
+                                                " ${ShoppingCardSum.totalSum(shoppingListNotifier).toStringAsFixed(2)}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge,
+                                          ),
+                                        ]),
+                                  ));
                             }),
                         onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text("Successfully Purchased"),
-                                titleTextStyle:
-                                    Theme.of(context).textTheme.bodyLarge,
-                                actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        shoppingCard = {};
-                                        widget.itemCountNotifier.value = 0;
-                                        Navigator.of(context).pop();
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text("OK"))
-                                ],
-                              );
-                            },
-                          );
+                          if (credit >=
+                              ShoppingCardSum.totalSum(shoppingListNotifier)) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Successfully Purchased"),
+                                  titleTextStyle:
+                                      Theme.of(context).textTheme.bodyLarge,
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          shoppingCard = {};
+                                          widget.itemCountNotifier.value = 0;
+                                          credit -= ShoppingCardSum.totalSum(
+                                              shoppingListNotifier);
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text("OK"))
+                                  ],
+                                );
+                              },
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: BackdropFilter(
+                                  filter: ImageFilter.blur(
+                                      sigmaX: 2.0, sigmaY: 2.0),
+                                  child: const Text(
+                                    "Not enough credit",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                duration: const Duration(seconds: 3),
+                                action: SnackBarAction(
+                                  label: 'Charge',
+                                  textColor: Colors.white,
+                                  onPressed: () {
+                                    chargeCreditAlert(
+                                        context, chargeCreditNotifier);
+                                  },
+                                ),
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor:
+                                    const Color.fromARGB(255, 59, 69, 160),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            );
+                          }
                         },
                       ),
                     ),

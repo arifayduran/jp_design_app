@@ -5,6 +5,9 @@ import 'package:flutter_sficon/flutter_sficon.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jp_design_app/src/config/logical_sizes.dart';
 import 'package:jp_design_app/src/core/presentation/widgets/my_gradient_button_widget.dart';
+import 'package:jp_design_app/src/core/presentation/widgets/my_small_circle_button_widget.dart';
+import 'package:jp_design_app/src/features/add_to_order/application/generate_review_stars.dart';
+import 'package:jp_design_app/src/features/add_to_order/application/get_ingredients_icons.dart';
 import 'package:jp_design_app/src/features/shopping_card/data/shopping_card.dart';
 import 'package:jp_design_app/src/domain/item.dart';
 import 'package:jp_design_app/src/features/shopping_card/domain/shopping_card_details.dart';
@@ -114,53 +117,6 @@ class MyBottomSheetAddOrderWidgetState
     });
   }
 
-  List<Widget> generateReviewStars(double rating) {
-    List<Widget> stars = [];
-    for (int i = 1; i <= 5; i++) {
-      if (rating >= i) {
-        stars.add(const SFIcon(SFIcons.sf_star_fill,
-            color: Colors.white, fontSize: 12));
-      } else if (rating >= i - 0.5) {
-        stars.add(const SFIcon(SFIcons.sf_star_leadinghalf_filled,
-            color: Colors.white, fontSize: 12));
-      } else {
-        stars.add(
-            const SFIcon(SFIcons.sf_star, color: Colors.white, fontSize: 12));
-      }
-    }
-    return stars;
-  }
-
-  List<Widget> getIngredientsIcons(Item item) {
-    List<Widget> icons = [];
-    if (item.isGluten) {
-      icons.add(Padding(
-        padding: const EdgeInsets.only(right: 7),
-        child:
-            Image.asset('assets/icons/gluten_icon.png', width: 20, height: 20),
-      ));
-    }
-    if (item.isSugar) {
-      icons.add(Padding(
-          padding: const EdgeInsets.only(right: 7),
-          child: Image.asset('assets/icons/sugar_icon.png',
-              width: 20, height: 20)));
-    }
-    if (item.isLowFat) {
-      icons.add(Padding(
-          padding: const EdgeInsets.only(right: 7),
-          child: Image.asset('assets/icons/lowfat_icon.png',
-              width: 20, height: 20)));
-    }
-    if (item.isKcal) {
-      icons.add(Padding(
-          padding: const EdgeInsets.only(right: 7),
-          child: Image.asset('assets/icons/kcal_icon.png',
-              width: 20, height: 20)));
-    }
-    return icons;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -207,41 +163,18 @@ class MyBottomSheetAddOrderWidgetState
                   ),
                 ),
                 Positioned(
-                  top: 118,
-                  right: 12,
-                  width: 30,
-                  height: 30,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    clipBehavior: Clip.antiAlias,
-                    child: Material(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        highlightColor:
-                            const Color.fromARGB(180, 142, 134, 255),
-                        splashColor: const Color.fromARGB(180, 148, 88, 207),
-                        child: Ink(
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(120, 74, 71, 62),
-                              borderRadius: BorderRadius.circular(50),
-                              border: Border.all(
-                                  color: Colors.white.withOpacity(0.7),
-                                  width: 0.3,
-                                  strokeAlign: BorderSide.strokeAlignInside)),
-                          child: Icon(
-                            Icons.close,
-                            size: 20,
-                            color: Colors.white.withOpacity(0.7),
-                          ),
-                        ),
+                    top: 118,
+                    right: 12,
+                    child: MySmallCircleButtonWidget(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Icon(
+                        Icons.close,
+                        size: 20,
+                        color: Colors.white.withOpacity(0.7),
                       ),
-                    ),
-                  ),
-                ),
+                    )),
                 Positioned(
                   top: 275,
                   left: 25,
@@ -454,43 +387,17 @@ class MyBottomSheetAddOrderWidgetState
                   ),
                 ),
                 Positioned(
-                  bottom: 135,
-                  right: 102,
-                  height: 30,
-                  width: 30,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    clipBehavior: Clip.antiAlias,
-                    child: Material(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: () {
-                          decrementAmount();
-                        },
-                        highlightColor:
-                            const Color.fromARGB(180, 142, 134, 255),
-                        splashColor: const Color.fromARGB(180, 148, 88, 207),
-                        child: Ink(
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(120, 74, 71, 62),
-                              borderRadius: BorderRadius.circular(50),
-                              border: Border.all(
-                                  color: Colors.white.withOpacity(0.7),
-                                  width: 0.3,
-                                  strokeAlign: BorderSide.strokeAlignInside)),
-                          child: Center(
-                            child: SFIcon(
-                              SFIcons.sf_minus,
-                              fontSize: 20,
-                              color: Colors.white.withOpacity(0.7),
-                            ),
-                          ),
-                        ),
+                    bottom: 135,
+                    right: 102,
+                    child: MySmallCircleButtonWidget(
+                      size: 30,
+                      onTap: decrementAmount,
+                      child: SFIcon(
+                        SFIcons.sf_minus,
+                        fontSize: 20,
+                        color: Colors.white.withOpacity(0.7),
                       ),
-                    ),
-                  ),
-                ),
+                    )),
                 Positioned(
                     bottom: 135,
                     right: 72,
@@ -504,42 +411,16 @@ class MyBottomSheetAddOrderWidgetState
                           fontWeight: FontWeight.w700),
                     )),
                 Positioned(
-                  bottom: 135,
-                  right: 25,
-                  height: 30,
-                  width: 30,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    clipBehavior: Clip.antiAlias,
-                    child: Material(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: () {
-                          incrementAmount();
-                        },
-                        highlightColor:
-                            const Color.fromARGB(180, 142, 134, 255),
-                        splashColor: const Color.fromARGB(180, 148, 88, 207),
-                        child: Ink(
-                            decoration: BoxDecoration(
-                                color: const Color.fromARGB(120, 74, 71, 62),
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(
-                                    color: Colors.white.withOpacity(0.7),
-                                    width: 0.3,
-                                    strokeAlign: BorderSide.strokeAlignInside)),
-                            child: Center(
-                              child: SFIcon(
-                                SFIcons.sf_plus,
-                                fontSize: 20,
-                                color: Colors.white.withOpacity(0.7),
-                              ),
-                            )),
+                    bottom: 135,
+                    right: 25,
+                    child: MySmallCircleButtonWidget(
+                      onTap: incrementAmount,
+                      child: SFIcon(
+                        SFIcons.sf_plus,
+                        fontSize: 20,
+                        color: Colors.white.withOpacity(0.7),
                       ),
-                    ),
-                  ),
-                ),
+                    )),
                 Positioned(
                   bottom: 55,
                   left: 25,

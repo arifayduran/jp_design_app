@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_sficon/flutter_sficon.dart';
+import 'package:jp_design_app/src/core/presentation/widgets/my_small_circle_button_widget.dart';
 import 'package:jp_design_app/src/features/shopping_card/data/shopping_card.dart';
 import 'package:jp_design_app/src/domain/item.dart';
 import 'package:jp_design_app/src/features/shopping_card/domain/shopping_card_details.dart';
@@ -246,43 +247,16 @@ class _MyShoppingCardTileWidgetState extends State<MyShoppingCardTileWidget> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                clipBehavior: Clip.antiAlias,
-                                child: Material(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                    onTap: () {
-                                      _decrementAmountUntilDelete();
-                                    },
-                                    highlightColor:
-                                        const Color.fromARGB(130, 59, 69, 160),
-                                    splashColor:
-                                        const Color.fromARGB(130, 59, 69, 160),
-                                    child: Ink(
-                                      height: 26,
-                                      width: 26,
-                                      decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              120, 74, 71, 62),
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                          border: Border.all(
-                                              color:
-                                                  Colors.white.withOpacity(0.7),
-                                              width: 0.1,
-                                              strokeAlign: BorderSide
-                                                  .strokeAlignInside)),
-                                      child: Center(
-                                        child: SFIcon(
-                                          SFIcons.sf_minus,
-                                          fontSize: 16,
-                                          color: Colors.white.withOpacity(0.7),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                              MySmallCircleButtonWidget(
+                                onTap: () {
+                                  _decrementAmountUntilDelete();
+                                },
+                                size: 26,
+                                strokewidth: 0.1,
+                                child: SFIcon(
+                                  SFIcons.sf_minus,
+                                  fontSize: 16,
+                                  color: Colors.white.withOpacity(0.7),
                                 ),
                               ),
                               Text(
@@ -294,45 +268,18 @@ class _MyShoppingCardTileWidgetState extends State<MyShoppingCardTileWidget> {
                                     letterSpacing: 0,
                                     fontWeight: FontWeight.w400),
                               ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                clipBehavior: Clip.antiAlias,
-                                child: Material(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                    onTap: () {
-                                      _incrementAmount();
-                                    },
-                                    highlightColor:
-                                        const Color.fromARGB(130, 59, 69, 160),
-                                    splashColor:
-                                        const Color.fromARGB(130, 59, 69, 160),
-                                    child: Ink(
-                                        height: 26,
-                                        width: 26,
-                                        decoration: BoxDecoration(
-                                            color: const Color.fromARGB(
-                                                120, 74, 71, 62),
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            border: Border.all(
-                                                color: Colors.white
-                                                    .withOpacity(0.7),
-                                                width: 0.1,
-                                                strokeAlign: BorderSide
-                                                    .strokeAlignInside)),
-                                        child: Center(
-                                          child: SFIcon(
-                                            SFIcons.sf_plus,
-                                            fontSize: 16,
-                                            color:
-                                                Colors.white.withOpacity(0.7),
-                                          ),
-                                        )),
-                                  ),
+                              MySmallCircleButtonWidget(
+                                onTap: () {
+                                  _incrementAmount();
+                                },
+                                size: 26,
+                                strokewidth: 0.1,
+                                child: SFIcon(
+                                  SFIcons.sf_plus,
+                                  fontSize: 16,
+                                  color: Colors.white.withOpacity(0.7),
                                 ),
-                              ),
+                              )
                             ],
                           ),
                         ),
