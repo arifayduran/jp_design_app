@@ -132,6 +132,5 @@ class _ChargeCreditAlertState extends State<ChargeCreditAlert> {
         )
       ],
     );
-    ;
   }
 }
