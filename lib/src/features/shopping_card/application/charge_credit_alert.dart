@@ -40,7 +40,7 @@ class _ChargeCreditAlertState extends State<ChargeCreditAlert> {
                       selectedAmountToCharge = 5;
                     });
                   },
-                  child: Text("5"),
+                  child: const Text("5"),
                 ),
                 TextButton(
                   onPressed: () {
@@ -48,7 +48,7 @@ class _ChargeCreditAlertState extends State<ChargeCreditAlert> {
                       selectedAmountToCharge = 70;
                     });
                   },
-                  child: Text("70"),
+                  child: const Text("70"),
                 )
               ],
             ),
@@ -60,7 +60,7 @@ class _ChargeCreditAlertState extends State<ChargeCreditAlert> {
                       selectedAmountToCharge = 10;
                     });
                   },
-                  child: Text("10"),
+                  child: const Text("10"),
                 ),
                 TextButton(
                   onPressed: () {
@@ -68,7 +68,7 @@ class _ChargeCreditAlertState extends State<ChargeCreditAlert> {
                       selectedAmountToCharge = 100;
                     });
                   },
-                  child: Text("100"),
+                  child: const Text("100"),
                 )
               ],
             ),
@@ -80,7 +80,7 @@ class _ChargeCreditAlertState extends State<ChargeCreditAlert> {
                       selectedAmountToCharge = 20;
                     });
                   },
-                  child: Text("20"),
+                  child: const Text("20"),
                 ),
                 TextButton(
                   onPressed: () {
@@ -88,7 +88,7 @@ class _ChargeCreditAlertState extends State<ChargeCreditAlert> {
                       selectedAmountToCharge = 200;
                     });
                   },
-                  child: Text("200"),
+                  child: const Text("200"),
                 )
               ],
             ),
@@ -100,7 +100,7 @@ class _ChargeCreditAlertState extends State<ChargeCreditAlert> {
                       selectedAmountToCharge = 50;
                     });
                   },
-                  child: Text("50"),
+                  child: const Text("50"),
                 ),
                 TextButton(
                   onPressed: () {
@@ -108,7 +108,7 @@ class _ChargeCreditAlertState extends State<ChargeCreditAlert> {
                       selectedAmountToCharge = 500;
                     });
                   },
-                  child: Text("500"),
+                  child: const Text("500"),
                 )
               ],
             ),
