@@ -20,7 +20,6 @@ List<MyBlurButtonWidget> getBluredButtons(
       letterSpacing: -0.5,
 
       fontFamily: "Inter",
-      // fontFamily: "SF Pro",
     );
   }
 

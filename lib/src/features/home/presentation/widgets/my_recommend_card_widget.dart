@@ -42,7 +42,7 @@ class MyRecommendCardWidget extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Color.fromARGB(180, 107, 109, 128),
+                        Color.fromARGB(180, 117, 117, 117),
                         Color.fromARGB(180, 142, 134, 255),
                         Color.fromARGB(180, 148, 88, 207),
                       ])),

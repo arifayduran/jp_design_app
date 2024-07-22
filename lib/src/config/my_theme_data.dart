@@ -12,32 +12,25 @@ ThemeData myThemeData = ThemeData(
       letterSpacing: -1,
       fontWeight: FontWeight.w900,
       color: Colors.white,
-
       height: 1.3,
       fontFamily: "Inter",
-      // fontFamily: "SF Pro",
     ),
     titleLarge: TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w700,
       color: Colors.white,
       letterSpacing: -1,
-      // fontStyle: FontStyle.italic,
       fontFamily: "Inter",
-      // fontFamily: "SF Pro",
     ),
     bodyMedium: TextStyle(
       fontSize: 13,
       fontWeight: FontWeight.w500,
-
       letterSpacing: 0,
       color: Color.fromARGB(255, 167, 167, 167),
-      // fontFamily: "Inter",
       fontFamily: "SF Pro",
     ),
     displaySmall: TextStyle(
       fontFamily: "Inter",
-      // fontFamily: "SF Pro",
     ),
   ),
 );
