@@ -296,10 +296,10 @@ class _MyBottomSheetShoppingCardWidgetState
                             builder: (context, shoppingList, _) {
                               return Shimmer.fromColors(
                                   loop: 3,
-                                  period: Duration(seconds: 2),
+                                  period: const Duration(seconds: 2),
                                   baseColor:
                                       const Color.fromARGB(255, 255, 255, 255),
-                                  highlightColor: Color.fromARGB(255, 0, 0, 0),
+                                  highlightColor: const Color.fromARGB(255, 0, 0, 0),
                                   child: Text.rich(
                                     TextSpan(
                                         text: "Pay with  ",

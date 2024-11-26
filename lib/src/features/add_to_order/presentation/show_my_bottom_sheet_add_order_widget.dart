@@ -113,7 +113,6 @@ class MyBottomSheetAddOrderWidgetState
       }
       widget.itemCountNotifier.value =
           shoppingCard.values.fold(0, (total, card) => total + card.amount);
-      ;
     });
   }
 
@@ -252,6 +251,7 @@ class MyBottomSheetAddOrderWidgetState
                               children: [
                                 SvgPicture.asset(
                                   "assets/icons/Coin-ada-big.svg",
+                                  // ignore: deprecated_member_use
                                   color: Colors.white,
                                   height: 20,
                                 ),

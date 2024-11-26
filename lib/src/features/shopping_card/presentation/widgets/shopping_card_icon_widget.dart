@@ -39,7 +39,7 @@ class ShoppingCardIconWidget extends StatelessWidget {
                         onPressed: () {},
                       ),
                       behavior: SnackBarBehavior.floating,
-                      backgroundColor: Color.fromARGB(190, 220, 143, 219),
+                      backgroundColor: const Color.fromARGB(190, 220, 143, 219),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),

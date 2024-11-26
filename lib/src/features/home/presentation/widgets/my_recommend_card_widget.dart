@@ -96,6 +96,7 @@ class MyRecommendCardWidget extends StatelessWidget {
                     children: [
                       SvgPicture.asset(
                         "assets/icons/Coin-ada-big.svg",
+                        // ignore: deprecated_member_use
                         color: Colors.white,
                         height: 15,
                       ),

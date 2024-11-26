@@ -85,6 +85,7 @@ class MyTopCardWidget extends StatelessWidget {
                                     children: [
                                       SvgPicture.asset(
                                         "assets/icons/Coin-ada-big.svg",
+                                        // ignore: deprecated_member_use
                                         color: Colors.white,
                                         height: 17,
                                       ),
@@ -132,7 +133,7 @@ class MyTopCardWidget extends StatelessWidget {
                           ],
                         ),
                         isEmpty
-                            ? SizedBox(
+                            ? const SizedBox(
                                 height: 14,
                               )
                             : Row(
