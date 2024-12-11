@@ -84,7 +84,7 @@ class MyRecommendCardWidget extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                           overflow: TextOverflow.ellipsis,
                           letterSpacing: -0.3,
-                          color: Colors.white.withOpacity(0.4),
+                          color: Colors.white.withValues(alpha: 0.4),
                           fontFamily: "Inter",
                           fontSize: 12.8),
                     ),
@@ -112,13 +112,13 @@ class MyRecommendCardWidget extends StatelessWidget {
                       Icon(
                         Icons.favorite_outline,
                         size: 17,
-                        color: Colors.white.withOpacity(0.4),
+                        color: Colors.white.withValues(alpha: 0.4),
                       ),
                       Text(
                         " $likedCount",
                         style: TextStyle(
                             fontFamily: "SF Pro",
-                            color: Colors.white.withOpacity(0.4),
+                            color: Colors.white.withValues(alpha: 0.4),
                             fontSize: 13.5),
                       ),
                     ],

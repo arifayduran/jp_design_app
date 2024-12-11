@@ -70,7 +70,8 @@ class MyTopCardWidget extends StatelessWidget {
                               child: Text(subtitle,
                                   style: TextStyle(
                                       fontSize: 12,
-                                      color: Colors.white.withOpacity(0.6),
+                                      color:
+                                          Colors.white.withValues(alpha: 0.6),
                                       height: 0,
                                       fontWeight: FontWeight.w900)),
                             ),
@@ -146,7 +147,8 @@ class MyTopCardWidget extends StatelessWidget {
                                   Text(
                                     " ${reviews.toStringAsFixed(1)} ",
                                     style: TextStyle(
-                                        color: Colors.white.withOpacity(0.7),
+                                        color:
+                                            Colors.white.withValues(alpha: 0.7),
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold),
                                   )

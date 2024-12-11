@@ -31,7 +31,7 @@ class MyBlurButtonWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRadius),
         border: withBorder == true
             ? Border.all(
-                color: Colors.white.withOpacity(0.3),
+                color: Colors.white.withValues(alpha: 0.3),
                 width: 1,
                 strokeAlign: BorderSide.strokeAlignInside,
               )

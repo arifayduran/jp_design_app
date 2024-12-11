@@ -47,7 +47,7 @@ class MyBottomSheetAddOrderWidget extends StatefulWidget {
 class MyBottomSheetAddOrderWidgetState
     extends State<MyBottomSheetAddOrderWidget> {
   Icon favIcon = Icon(Icons.favorite_border,
-      size: 17, color: Colors.white.withOpacity(0.4));
+      size: 17, color: Colors.white.withValues(alpha: 0.4));
   bool isFavorite = false;
   int favCountNew = 0;
   int selectedSizeIndex = 2;
@@ -171,7 +171,7 @@ class MyBottomSheetAddOrderWidgetState
                       child: Icon(
                         Icons.close,
                         size: 20,
-                        color: Colors.white.withOpacity(0.7),
+                        color: Colors.white.withValues(alpha: 0.7),
                       ),
                     )),
                 Positioned(
@@ -212,8 +212,8 @@ class MyBottomSheetAddOrderWidgetState
                                       } else {
                                         favIcon = Icon(Icons.favorite_border,
                                             size: 17,
-                                            color:
-                                                Colors.white.withOpacity(0.4));
+                                            color: Colors.white
+                                                .withValues(alpha: 0.4));
                                         favCountNew--;
                                       }
                                     });
@@ -224,7 +224,8 @@ class MyBottomSheetAddOrderWidgetState
                                   " $favCountNew",
                                   style: TextStyle(
                                       fontFamily: "SF Pro",
-                                      color: Colors.white.withOpacity(0.4),
+                                      color:
+                                          Colors.white.withValues(alpha: 0.4),
                                       fontSize: 13.5),
                                 ),
                               ],
@@ -369,7 +370,7 @@ class MyBottomSheetAddOrderWidgetState
                     activeBgColor: const [Color.fromARGB(255, 108, 108, 108)],
                     inactiveBgColor: const Color.fromARGB(140, 85, 85, 85),
                     activeFgColor: Colors.white,
-                    inactiveFgColor: Colors.white.withOpacity(0.6),
+                    inactiveFgColor: Colors.white.withValues(alpha: 0.6),
                     initialLabelIndex: selectedSizeIndex,
                     fontSize: 11.3,
                     dividerMargin: 9,
@@ -395,7 +396,7 @@ class MyBottomSheetAddOrderWidgetState
                       child: SFIcon(
                         SFIcons.sf_minus,
                         fontSize: 20,
-                        color: Colors.white.withOpacity(0.7),
+                        color: Colors.white.withValues(alpha: 0.7),
                       ),
                     )),
                 Positioned(
@@ -418,7 +419,7 @@ class MyBottomSheetAddOrderWidgetState
                       child: SFIcon(
                         SFIcons.sf_plus,
                         fontSize: 20,
-                        color: Colors.white.withOpacity(0.7),
+                        color: Colors.white.withValues(alpha: 0.7),
                       ),
                     )),
                 Positioned(

@@ -126,7 +126,7 @@ class _MyShoppingCardTileWidgetState extends State<MyShoppingCardTileWidget> {
           width: double.infinity,
           decoration: BoxDecoration(
               border: Border.all(
-                color: Colors.grey.withOpacity(0.4),
+                color: Colors.grey.withValues(alpha: 0.4),
                 width: 1.5,
               ),
               borderRadius: BorderRadius.circular(30),
@@ -170,7 +170,7 @@ class _MyShoppingCardTileWidgetState extends State<MyShoppingCardTileWidget> {
                             widget.item.title,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                color: Colors.white.withOpacity(0.7),
+                                color: Colors.white.withValues(alpha: 0.7),
                                 height: 0,
                                 letterSpacing: -0.8,
                                 fontWeight: FontWeight.w600),
@@ -180,7 +180,7 @@ class _MyShoppingCardTileWidgetState extends State<MyShoppingCardTileWidget> {
                           "  ${String.fromCharCodes(Runes('\u20B3'))} ${_itemPriceTotal.toStringAsFixed(2)}",
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              color: Colors.white.withOpacity(0.7),
+                              color: Colors.white.withValues(alpha: 0.7),
                               height: 0,
                               letterSpacing: 0,
                               fontWeight: FontWeight.w600),
@@ -198,7 +198,7 @@ class _MyShoppingCardTileWidgetState extends State<MyShoppingCardTileWidget> {
                             widget.item.subtitle,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                color: Colors.white.withOpacity(0.5),
+                                color: Colors.white.withValues(alpha: 0.5),
                                 height: 0,
                                 letterSpacing: -0.8,
                                 fontWeight: FontWeight.w300),
@@ -208,7 +208,7 @@ class _MyShoppingCardTileWidgetState extends State<MyShoppingCardTileWidget> {
                           "     ${String.fromCharCodes(Runes('\u20B3'))} ${_currentPrice.toStringAsFixed(2)}",
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              color: Colors.white.withOpacity(0.5),
+                              color: Colors.white.withValues(alpha: 0.5),
                               height: 0,
                               letterSpacing: 0,
                               fontWeight: FontWeight.w300),
@@ -228,7 +228,7 @@ class _MyShoppingCardTileWidgetState extends State<MyShoppingCardTileWidget> {
                           inactiveBgColor:
                               const Color.fromARGB(140, 85, 85, 85),
                           activeFgColor: Colors.white,
-                          inactiveFgColor: Colors.white.withOpacity(0.6),
+                          inactiveFgColor: Colors.white.withValues(alpha: 0.6),
                           initialLabelIndex: widget.shoppingListNotifier
                               .value[widget.item]!.selectedSizeIndex,
                           fontSize: 11.3,
@@ -256,13 +256,13 @@ class _MyShoppingCardTileWidgetState extends State<MyShoppingCardTileWidget> {
                                 child: SFIcon(
                                   SFIcons.sf_minus,
                                   fontSize: 16,
-                                  color: Colors.white.withOpacity(0.7),
+                                  color: Colors.white.withValues(alpha: 0.7),
                                 ),
                               ),
                               Text(
                                 "${shoppingCard[widget.item]!.amount}",
                                 style: TextStyle(
-                                    color: Colors.white.withOpacity(0.7),
+                                    color: Colors.white.withValues(alpha: 0.7),
                                     fontSize: 18,
                                     fontFamily: "Inter",
                                     letterSpacing: 0,
@@ -277,7 +277,7 @@ class _MyShoppingCardTileWidgetState extends State<MyShoppingCardTileWidget> {
                                 child: SFIcon(
                                   SFIcons.sf_plus,
                                   fontSize: 16,
-                                  color: Colors.white.withOpacity(0.7),
+                                  color: Colors.white.withValues(alpha: 0.7),
                                 ),
                               )
                             ],

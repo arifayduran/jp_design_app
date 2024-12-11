@@ -91,7 +91,7 @@ class _MyBottomSheetShoppingCardWidgetState
               child: Container(
                 width: logicWidth,
                 height: logicHeight,
-                color: Colors.black.withOpacity(0.2),
+                color: Colors.black.withValues(alpha: 0.2),
                 child: Stack(
                   clipBehavior: Clip.none,
                   children: [
@@ -199,7 +199,7 @@ class _MyBottomSheetShoppingCardWidgetState
                                 .copyWith(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w700,
-                                  color: Colors.white.withOpacity(0.6),
+                                  color: Colors.white.withValues(alpha: 0.6),
                                 ),
                           ),
                         ),
@@ -250,7 +250,7 @@ class _MyBottomSheetShoppingCardWidgetState
                                 .copyWith(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.white.withOpacity(0.7),
+                                  color: Colors.white.withValues(alpha: 0.7),
                                 ),
                           ),
                           ValueListenableBuilder<double>(
@@ -264,7 +264,8 @@ class _MyBottomSheetShoppingCardWidgetState
                                     .copyWith(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
-                                      color: Colors.white.withOpacity(0.7),
+                                      color:
+                                          Colors.white.withValues(alpha: 0.7),
                                     ),
                               );
                             },
@@ -281,7 +282,7 @@ class _MyBottomSheetShoppingCardWidgetState
                         height: 50,
                         borderStroke: 1.5,
                         borderRadius: BorderRadius.circular(10),
-                        borderColor: Colors.grey.withOpacity(0.4),
+                        borderColor: Colors.grey.withValues(alpha: 0.4),
                         gradient: const LinearGradient(
                           colors: [
                             Color.fromARGB(255, 202, 130, 165),
@@ -289,7 +290,7 @@ class _MyBottomSheetShoppingCardWidgetState
                             Color.fromARGB(255, 59, 69, 160),
                           ],
                         ),
-                        shadowColor: Colors.black.withOpacity(0.5),
+                        shadowColor: Colors.black.withValues(alpha: 0.5),
                         child: ValueListenableBuilder<
                                 Map<Item, ShoppingCardDetails>>(
                             valueListenable: shoppingListNotifier,
@@ -299,7 +300,8 @@ class _MyBottomSheetShoppingCardWidgetState
                                   period: const Duration(seconds: 2),
                                   baseColor:
                                       const Color.fromARGB(255, 255, 255, 255),
-                                  highlightColor: const Color.fromARGB(255, 0, 0, 0),
+                                  highlightColor:
+                                      const Color.fromARGB(255, 0, 0, 0),
                                   child: Text.rich(
                                     TextSpan(
                                         text: "Pay with  ",

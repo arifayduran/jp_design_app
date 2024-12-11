@@ -6,9 +6,9 @@ import 'package:flutter_sficon/flutter_sficon.dart';
 List<MyBlurButtonWidget> getBluredButtons(
     Function(int) onSelectBlurButton, int selectedBlurButtonIndex) {
   Color selectedButtonBgColor = const Color.fromARGB(255, 231, 200, 230);
-  Color unselectedButtonBgColor = Colors.white.withOpacity(0.1);
-  Color selectedButtonTextColor = Colors.black.withOpacity(0.7);
-  Color unselectedButtonTextColor = Colors.white.withOpacity(0.4);
+  Color unselectedButtonBgColor = Colors.white.withValues(alpha: 0.1);
+  Color selectedButtonTextColor = Colors.black.withValues(alpha: 0.7);
+  Color unselectedButtonTextColor = Colors.white.withValues(alpha: 0.4);
 
   TextStyle buttonTextStyle(int index) {
     return TextStyle(
@@ -18,7 +18,6 @@ List<MyBlurButtonWidget> getBluredButtons(
           ? selectedButtonTextColor
           : unselectedButtonTextColor,
       letterSpacing: -0.5,
-
       fontFamily: "Inter",
     );
   }

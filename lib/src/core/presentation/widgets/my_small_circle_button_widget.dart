@@ -39,7 +39,7 @@ class MySmallCircleButtonWidget extends StatelessWidget {
                 color: bgColor,
                 borderRadius: BorderRadius.circular(50),
                 border: Border.all(
-                    color: Colors.white.withOpacity(0.7),
+                    color: Colors.white.withValues(alpha: 0.7),
                     width: strokewidth,
                     strokeAlign: BorderSide.strokeAlignInside)),
             child: Center(
